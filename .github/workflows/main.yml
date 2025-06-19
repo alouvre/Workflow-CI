@@ -4,56 +4,27 @@ on:
   push:
     branches:
       - main
-  pull_request:
-    branches:
-      - main
-
-env:
-  CSV_URL: "MLProject/data_student_cleaned.csv"
-  TARGET_VAR: "Status"
+  workflow_dispatch: # bisa dipantik manual dari GitHub UI
 
 jobs:
-  build-and-deploy:
+  train-model:
     runs-on: ubuntu-latest
 
     steps:
-      - name: 📥 Checkout repository
+      - name: Checkout Repo
         uses: actions/checkout@v3
 
-      - name: 🐍 Set up Python
-        uses: actions/setup-python@v4
+      - name: Set up Conda
+        uses: conda-incubator/setup-miniconda@v2
         with:
-          python-version: "3.11.13"
+          environment-file: MLProject/conda.yaml
+          activate-environment: mlflow-env
+          auto-activate-base: false
 
-      - name: 📦 Install dependencies
+      - name: Install MLflow CLI
+        run: pip install mlflow
+
+      - name: Run MLflow Project
         run: |
-          pip install mlflow
-          pip install -r MLProject/requirements.txt
-
-      - name: 🚀 Run MLflow Project
-        run: |
-          mlflow run MLProject --env-manager=local
-
-      - name: 🔁 Get latest run ID (optional logging)
-        run: |
-          echo "RUN_ID=$(mlflow experiments list --view-type ACTIVE | tail -n 1 | awk '{print $1}')" >> $GITHUB_ENV
-
-      - name: 📦 Simulasi Upload Artifact ke Google Drive
-        run: |
-          echo "Simulasi upload artifact dari mlruns ke Google Drive... (disesuaikan manual jika perlu)"
-
-      - name: 🐳 Build Docker Image dari model
-        run: |
-          docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/workflow-ci:latest .
-
-      - name: 🔐 Login ke Docker Hub
-        run: echo "${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}" | docker login -u "${{ secrets.DOCKER_HUB_USERNAME }}" --password-stdin
-
-      - name: 🏷️ Tag Docker image
-        run: |
-          docker tag ${{ secrets.DOCKER_HUB_USERNAME }}/workflow-ci:latest ${{ secrets.DOCKER_HUB_USERNAME }}/workflow-ci:v1.0.0
-
-      - name: ⬆️ Push Docker image ke Docker Hub
-        run: |
-          docker push ${{ secrets.DOCKER_HUB_USERNAME }}/workflow-ci:latest
-          docker push ${{ secrets.DOCKER_HUB_USERNAME }}/workflow-ci:v1.0.0
+          cd MLProject
+          mlflow run . --entry-point main

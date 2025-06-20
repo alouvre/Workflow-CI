@@ -1,30 +1,69 @@
-name: MLflow CI/CD
+name: CI - MLFlow
 
 on:
-  push:
-    branches:
-      - main
+  push: 
+    branches:[main]
   workflow_dispatch: # bisa dipantik manual dari GitHub UI
+
+env:
+  CSV_URL: "MLproject/data_student_cleaned.csv"
+  TARGET_VAR: "Status"
 
 jobs:
   train-model:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repo
+      - name: Run actions/checkout@v3 
         uses: actions/checkout@v3
-
-      - name: Set up Conda
-        uses: conda-incubator/setup-miniconda@v2
+      
+      - name: Set up Python 3.11.13
+        uses: actions/setup-python@v4
         with:
-          environment-file: MLProject/conda.yaml
-          activate-environment: mlflow-env
-          auto-activate-base: false
+          python-version: 3.11.13
+        
+      - name: Check Python and pip versions
+        run: |
+          echo $CSV_URL
+          python --version
+          pip --version
 
-      - name: Install MLflow CLI
-        run: pip install mlflow
+      - name: Install dependencies
+        run: |
+          pip install -r ./MLProject/requirements.txt
 
-      - name: Run MLflow Project
+      - name: Run MLflow project
         run: |
           cd MLProject
-          mlflow run . --entry-point main
+          export MLFLOW_TRACKING_URI=file:./mlruns
+          mlflow run . --env-manager=local
+
+      - name: Get latest MLflow run_id
+        id: get_run_id
+        run: |
+          cd MLProject
+          export MLFLOW_TRACKING_URI=file:./mlruns
+
+          experiment_id=0
+          echo "experiment_id=$experiment_id" >> $GITHUB_ENV
+
+          run_id=$(ls -1t "./mlruns/$experiment_id" | grep -E '^[a-f0-9]{32}$' | head -n 1)
+          if [ -z "$run_id" ]; then
+            echo "Failed to get run_id"
+            exit 1
+          fi
+
+          echo "Latest run_id: $run_id"
+          echo "MLFLOW_RUN_ID=$run_id" >> $GITHUB_ENV
+
+      - name: Install Python dependencies
+        run: |
+          echo "Install dependencies dari model jika perlu"
+          # Contoh jika model tersimpan di model_dir/model
+          pip install -r model_dir/model/requirements.txt || echo "Tidak ada file requirements"
+      
+      - name: Upload MLflow artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: mlartifacts
+          path: MLProject/mlruns/${{ env.experiment_id }}/${{ env.MLFLOW_RUN_ID }}/artifacts

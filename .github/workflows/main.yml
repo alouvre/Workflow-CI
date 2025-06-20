@@ -1,8 +1,9 @@
 name: CI - MLFlow
 
 on:
-  push: 
-    branches:[main]
+  push:
+    branches:
+      - main
   workflow_dispatch: # bisa dipantik manual dari GitHub UI
 
 env:
@@ -14,14 +15,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Run actions/checkout@v3 
+      - name: Run actions/checkout@v3
         uses: actions/checkout@v3
-      
+
       - name: Set up Python 3.11.13
         uses: actions/setup-python@v4
         with:
           python-version: 3.11.13
-        
+
       - name: Check Python and pip versions
         run: |
           echo $CSV_URL
@@ -61,7 +62,7 @@ jobs:
           echo "Install dependencies dari model jika perlu"
           # Contoh jika model tersimpan di model_dir/model
           pip install -r model_dir/model/requirements.txt || echo "Tidak ada file requirements"
-      
+
       - name: Upload MLflow artifacts
         uses: actions/upload-artifact@v4
         with:

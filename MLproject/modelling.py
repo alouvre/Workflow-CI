@@ -20,7 +20,7 @@ from sklearn.metrics import (
 # ----------------------------------
 # mlflow.set_tracking_uri("http://127.0.0.1:5000")
 mlflow.set_tracking_uri(os.getenv("MLFLOW_TRACKING_URI", "file:mlruns"))
-mlflow.set_experiment("Dropout_Prediction_Submission_NoTuning")
+# mlflow.set_experiment("Dropout_Prediction_Submission_NoTuning")
 mlflow.autolog(disable=True)  # Nonaktifkan autolog agar tidak bentrok saat log manual
 
 

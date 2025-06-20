@@ -15,35 +15,39 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # BENER
       - name: Run actions/checkout@v3
         uses: actions/checkout@v3
 
+      # BENER
       - name: Set up Python 3.11.13
         uses: actions/setup-python@v4
         with:
           python-version: 3.11.13
 
+      # BENER
       - name: Check Python and pip versions
         run: |
           echo $CSV_URL
           python --version
           pip --version
 
+      # BENER
       - name: Install dependencies
         run: |
-          pip install -r ./MLProject/requirements.txt
+          pip install -r ./MLproject/requirements.txt
 
       - name: Run MLflow project
         run: |
-          # cd MLProject
+          # cd MLproject
           # export MLFLOW_TRACKING_URI=file:./mlruns
           # mlflow run . --env-manager=local
-          mlflow run MLProject --env-manager=local
+          mlflow run MLproject --env-manager=local
 
       - name: Get latest MLflow run_id
         id: get_run_id
         run: |
-          cd MLProject
+          cd MLproject
           export MLFLOW_TRACKING_URI=file:./mlruns
 
           experiment_id=0
@@ -68,4 +72,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: mlartifacts
-          path: MLProject/mlruns/${{ env.experiment_id }}/${{ env.MLFLOW_RUN_ID }}/artifacts
+          path: MLproject/mlruns/${{ env.experiment_id }}/${{ env.MLFLOW_RUN_ID }}/artifacts

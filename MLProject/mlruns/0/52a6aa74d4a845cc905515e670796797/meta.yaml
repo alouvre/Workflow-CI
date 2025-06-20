@@ -1,0 +1,15 @@
+artifact_uri: file:///D:/Study_Base/00_A_LASKAR_AI/Dicoding_L_Membangun_Sistem_Machine_Learning/Kriteria_3_MembuatWorkflow_CI/MLProject/mlruns/0/52a6aa74d4a845cc905515e670796797/artifacts
+end_time: 1750402050993
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 52a6aa74d4a845cc905515e670796797
+run_name: fortunate-mole-311
+run_uuid: 52a6aa74d4a845cc905515e670796797
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1750402046204
+status: 4
+tags: []
+user_id: User

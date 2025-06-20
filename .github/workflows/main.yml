@@ -39,10 +39,9 @@ jobs:
 
       - name: Run MLflow project
         run: |
-          # cd MLproject
-          # export MLFLOW_TRACKING_URI=file:./mlruns
-          # mlflow run . --env-manager=local
-          mlflow run MLproject --env-manager=local
+          cd MLproject
+          export MLFLOW_TRACKING_URI=file:./mlruns
+          mlflow run . --env-manager=local
 
       - name: Get latest MLflow run_id
         id: get_run_id

@@ -4,7 +4,5 @@ conda_env: conda.yaml
 
 entry_points:
   main:
-    parameters:
-      {}
-      # data_path: { type: str, default: "data_student_cleaned.csv" }
+    parameters: {}
     command: "python modelling.py"

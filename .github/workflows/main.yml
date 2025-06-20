@@ -53,8 +53,8 @@ jobs:
       # Save models to GitHub Repository
       - name: Save mlruns to repo
         run: |
-          git config --global user.name ${{ secrets.username }}
-          git config --global user.email ${{ secrets.email }}
+          git config --global user.name ${{ secrets.USERNAME }}
+          git config --global user.email ${{ secrets.EMAIL }}
           git add MLproject/mlruns/
           git commit -m "Add MLflow tracking results from CI run"
           git push origin main

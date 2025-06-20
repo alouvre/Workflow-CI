@@ -48,7 +48,7 @@ jobs:
         run: |
           cd MLproject
           export MLFLOW_TRACKING_URI=file:./mlruns
-          mlflow run . --env-manager=local -P data_path=data_student_cleaned.csv
+          mlflow run . --env-manager=local
 
       # Save models to GitHub Repository
       - name: Save mlruns to repo

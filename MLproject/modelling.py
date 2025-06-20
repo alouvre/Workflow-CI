@@ -24,13 +24,13 @@ mlflow.set_tracking_uri(os.getenv("MLFLOW_TRACKING_URI", "file:mlruns"))
 mlflow.autolog(disable=True)  # Nonaktifkan autolog agar tidak bentrok saat log manual
 
 
-# ----------------------------------
-# 📂 Parse arguments
-# ----------------------------------
-def parse_args():
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--data_path', type=str, default='data_student_cleaned.csv', help='Path ke dataset')
-    return parser.parse_args()
+# # ----------------------------------
+# # 📂 Parse arguments
+# # ----------------------------------
+# def parse_args():
+#     parser = argparse.ArgumentParser()
+#     parser.add_argument('--data_path', type=str, default='data_student_cleaned.csv', help='Path ke dataset')
+#     return parser.parse_args()
 
 
 # ----------------------------------
@@ -61,8 +61,8 @@ def log_estimator_html(model, save_path):
 # ----------------------------------
 # ▶️ Main Training
 # ----------------------------------
-def main(data_path):
-    X_train, X_test, y_train, y_test = load_data(data_path)
+def main():
+    X_train, X_test, y_train, y_test = load_data()
 
     model_name = "XGBoost"
     model = XGBClassifier(eval_metric='logloss', n_jobs=1)
@@ -112,6 +112,6 @@ def main(data_path):
 # ----------------------------------
 # ▶️ Entry point
 # ----------------------------------
-if __name__ == "__main__":
-    args = parse_args()
-    main(args.data_path)
+# if __name__ == "__main__":
+#     args = parse_args()
+#     main(args.data_path)

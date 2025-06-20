@@ -64,7 +64,7 @@ def main(data_path):
     model_name = "XGBoost"
     model = XGBClassifier(eval_metric='logloss', n_jobs=1)
 
-    with mlflow.start_run(run_name="Model_NoTuning") as run:
+    with mlflow.start_run() as run:
         print(f"🔍 Training model: {model_name}...")
 
         pipeline = Pipeline([

@@ -4,7 +4,9 @@ on:
   push:
     branches:
       - main
-  workflow_dispatch: # bisa dipantik manual dari GitHub UI
+    pull_request:
+      branches:
+        - main
 
 env:
   CSV_URL: "MLproject/data_student_cleaned.csv"
@@ -16,16 +18,19 @@ jobs:
 
     steps:
       # BENER
+      # Checks-out your repository under $GITHUB_WORKSPACE
       - name: Run actions/checkout@v3
         uses: actions/checkout@v3
 
       # BENER
+      # Setup Python 3.11.13
       - name: Set up Python 3.11.13
         uses: actions/setup-python@v4
         with:
           python-version: 3.11.13
 
       # BENER
+      # Check Env Variables
       - name: Check Python and pip versions
         run: |
           echo $CSV_URL
@@ -33,15 +38,26 @@ jobs:
           pip --version
 
       # BENER
+      # Install mlflow
       - name: Install dependencies
         run: |
           pip install -r ./MLproject/requirements.txt
 
+      # Run as a mlflow project
       - name: Run MLflow project
         run: |
           cd MLproject
           export MLFLOW_TRACKING_URI=file:./mlruns
-          mlflow run . --env-manager=local
+          mlflow run . --env-manager=local -P data_path=data_student_cleaned.csv
+
+      # Save models to GitHub Repository
+      - name: Save mlruns to repo
+        run: |
+          git config --global user.name ${{ secrets.username }}
+          git config --global user.email ${{ secrets.email }}
+          git add MLproject/mlruns/
+          git commit -m "Add MLflow tracking results from CI run"
+          git push origin main
 
       - name: Get latest MLflow run_id
         id: get_run_id

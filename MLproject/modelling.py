@@ -47,7 +47,7 @@ def log_classification_report(y_true, y_pred, save_path):
     report = classification_report(y_true, y_pred, output_dict=True)
     with open(save_path, "w") as f:
         json.dump(report, f, indent=4)
-    mlflow.log_artifact(str(Path(save_path).resolve()))
+    mlflow.log_artifact(str(Path(save_path)))
 
 
 def log_estimator_html(model, save_path):
@@ -55,7 +55,7 @@ def log_estimator_html(model, save_path):
         f.write("<html><body><h2>Best Estimator</h2><pre>")
         f.write(str(model))
         f.write("</pre></body></html>")
-    mlflow.log_artifact(str(Path(save_path).resolve()))
+    mlflow.log_artifact(str(Path(save_path)))
 
 
 # ----------------------------------
@@ -101,7 +101,7 @@ def main(data_path):
         # Simpan model .pkl manual
         model_path = artifact_dir / f"{model_name}_model.pkl"
         joblib.dump(pipeline, model_path)
-        mlflow.log_artifact(str(model_path.resolve()))
+        mlflow.log_artifact(str(model_path))
 
         print(f"✅ Model {model_name} selesai dilatih dan dicatat ke MLflow.")
         print(f"🔍 Akurasi: {acc:.4f} | Precision: {prec:.4f} | Recall: {rec:.4f}  | F1-Score: {f1:.4f}")

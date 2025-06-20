@@ -62,6 +62,7 @@ jobs:
           git commit -m "Add MLflow tracking results from CI run" || echo "Nothing to commit"
           git push origin main
 
+
       - name: Get latest MLflow run_id
         id: get_run_id
         run: |

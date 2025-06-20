@@ -43,21 +43,24 @@ def load_data(path="data_student_cleaned.csv"):
     return train_test_split(X, y, test_size=0.25, random_state=42, stratify=y)
 
 
-def log_classification_report(y_true, y_pred, filename):
+def log_classification_report(y_true, y_pred, save_path):
     report = classification_report(y_true, y_pred, output_dict=True)
-    with open(filename, "w") as f:
+    with open(save_path, "w") as f:
         json.dump(report, f, indent=4)
-    mlflow.log_artifact(filename)
+    mlflow.log_artifact(str(Path(save_path).resolve()))
 
 
-def log_estimator_html(model, filename):
-    with open(filename, "w") as f:
+def log_estimator_html(model, save_path):
+    with open(save_path, "w") as f:
         f.write("<html><body><h2>Best Estimator</h2><pre>")
         f.write(str(model))
         f.write("</pre></body></html>")
-    mlflow.log_artifact(filename)
+    mlflow.log_artifact(str(Path(save_path).resolve()))
 
 
+# ----------------------------------
+# ▶️ Main Training
+# ----------------------------------
 def main(data_path):
     X_train, X_test, y_train, y_test = load_data(data_path)
 
@@ -74,6 +77,7 @@ def main(data_path):
         pipeline.fit(X_train, y_train)
         y_pred = pipeline.predict(X_test)
 
+        # Logging metrics
         acc = accuracy_score(y_test, y_pred)
         prec = precision_score(y_test, y_pred, average='weighted')
         rec = recall_score(y_test, y_pred, average='weighted')
@@ -87,8 +91,7 @@ def main(data_path):
             })
 
         # 📁 Buat folder artifacts manual
-        run_id = run.info.run_id
-        artifact_dir = Path("mlartifacts") / run_id / "artifacts"
+        artifact_dir = Path("artifacts") / run.info.run_id
         artifact_dir.mkdir(parents=True, exist_ok=True)
 
         # Logging artifacts
@@ -98,7 +101,7 @@ def main(data_path):
         # Simpan model .pkl manual
         model_path = artifact_dir / f"{model_name}_model.pkl"
         joblib.dump(pipeline, model_path)
-        mlflow.log_artifact(str(model_path))
+        mlflow.log_artifact(str(model_path.resolve()))
 
         print(f"✅ Model {model_name} selesai dilatih dan dicatat ke MLflow.")
         print(f"🔍 Akurasi: {acc:.4f} | Precision: {prec:.4f} | Recall: {rec:.4f}  | F1-Score: {f1:.4f}")

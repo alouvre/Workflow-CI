@@ -1,0 +1,15 @@
+artifact_uri: file:///D:/Study_Base/00_A_LASKAR_AI/Dicoding_L_Membangun_Sistem_Machine_Learning/Kriteria_3_MembuatWorkflow_CI/mlartifacts/956524306308254854/bd1d55151cc34e2293c6459186276226/artifacts
+end_time: 1750418356393
+entry_point_name: ''
+experiment_id: '956524306308254854'
+lifecycle_stage: active
+run_id: bd1d55151cc34e2293c6459186276226
+run_name: Model_NoTuning
+run_uuid: bd1d55151cc34e2293c6459186276226
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1750418348837
+status: 3
+tags: []
+user_id: User

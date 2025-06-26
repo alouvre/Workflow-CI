@@ -1,0 +1,41 @@
+artifact_path: best_XGBoost_model
+flavors:
+  python_function:
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.sklearn
+    model_path: model.pkl
+    predict_fn: predict
+    python_version: 3.11.13
+  sklearn:
+    code: null
+    pickled_model: model.pkl
+    serialization_format: cloudpickle
+    sklearn_version: 1.6.1
+mlflow_version: 2.19.0
+model_size_bytes: 211468
+model_uuid: 43c423e2683b44fb87609ea01ed2b717
+run_id: fb53a2a7c2944d4697fa5b1a3cd22693
+saved_input_example_info:
+  artifact_path: input_example.json
+  pandas_orient: split
+  serving_input_path: serving_input_example.json
+  type: dataframe
+signature:
+  inputs: '[{"type": "double", "name": "MothersQualification", "required": true},
+    {"type": "double", "name": "FathersQualification", "required": true}, {"type":
+    "double", "name": "MothersOccupation", "required": true}, {"type": "double", "name":
+    "FathersOccupation", "required": true}, {"type": "double", "name": "CurricularUnits1stSemCredited",
+    "required": true}, {"type": "double", "name": "CurricularUnits1stSemEnrolled",
+    "required": true}, {"type": "double", "name": "CurricularUnits1stSemEvaluations",
+    "required": true}, {"type": "double", "name": "CurricularUnits1stSemApproved",
+    "required": true}, {"type": "double", "name": "CurricularUnits1stSemGrade", "required":
+    true}, {"type": "double", "name": "CurricularUnits2ndSemCredited", "required":
+    true}, {"type": "double", "name": "CurricularUnits2ndSemEnrolled", "required":
+    true}, {"type": "double", "name": "CurricularUnits2ndSemEvaluations", "required":
+    true}, {"type": "double", "name": "CurricularUnits2ndSemApproved", "required":
+    true}, {"type": "double", "name": "CurricularUnits2ndSemGrade", "required": true}]'
+  outputs: '[{"type": "tensor", "tensor-spec": {"dtype": "int64", "shape": [-1]}}]'
+  params: null
+utc_time_created: '2025-06-20 12:16:47.275705'

@@ -43,6 +43,7 @@ jobs:
         run: |
           pip install -r ./MLproject/requirements.txt
 
+      # BENER
       # Run as a mlflow project
       - name: Run MLflow project
         run: |
@@ -50,6 +51,7 @@ jobs:
           export MLFLOW_TRACKING_URI=file:./mlruns
           mlflow run . --env-manager=local
 
+      # BENER
       # Save models to GitHub Repository
       - name: Save mlruns to repo
         run: |

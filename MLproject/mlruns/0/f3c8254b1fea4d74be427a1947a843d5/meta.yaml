@@ -1,0 +1,15 @@
+artifact_uri: file:///D:/Study_Base/00_A_LASKAR_AI/Dicoding_L_Membangun_Sistem_Machine_Learning/Kriteria_3_MembuatWorkflow_CI/MLProject/mlruns/0/f3c8254b1fea4d74be427a1947a843d5/artifacts
+end_time: 1750998566494
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: f3c8254b1fea4d74be427a1947a843d5
+run_name: painted-doe-796
+run_uuid: f3c8254b1fea4d74be427a1947a843d5
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1750998563979
+status: 3
+tags: []
+user_id: runner

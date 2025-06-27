@@ -48,7 +48,7 @@ jobs:
       - name: Run MLflow project
         run: |
           cd MLproject
-          export MLFLOW_TRACKING_URI=file:./mlruns
+          export MLFLOW_TRACKING_URI=file:./MLproject/mlruns
           mlflow run . --env-manager=local
 
       # BENER
@@ -65,7 +65,7 @@ jobs:
         id: get_run_id
         run: |
           cd MLproject
-          export MLFLOW_TRACKING_URI=file:./mlruns
+          export MLFLOW_TRACKING_URI=file:./MLproject/mlruns
 
           experiment_id=0
           echo "experiment_id=$experiment_id" >> $GITHUB_ENV

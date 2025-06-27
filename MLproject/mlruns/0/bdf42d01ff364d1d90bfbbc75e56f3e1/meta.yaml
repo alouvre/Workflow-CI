@@ -1,0 +1,15 @@
+artifact_uri: file:///D:/Study_Base/00_A_LASKAR_AI/Dicoding_L_Membangun_Sistem_Machine_Learning/Kriteria_3_MembuatWorkflow_CI/MLProject/mlruns/0/bdf42d01ff364d1d90bfbbc75e56f3e1/artifacts
+end_time: 1750990270108
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: bdf42d01ff364d1d90bfbbc75e56f3e1
+run_name: bustling-ray-651
+run_uuid: bdf42d01ff364d1d90bfbbc75e56f3e1
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1750990267554
+status: 3
+tags: []
+user_id: runner

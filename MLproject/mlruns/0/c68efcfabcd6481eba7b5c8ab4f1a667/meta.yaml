@@ -1,0 +1,15 @@
+artifact_uri: file:///D:/Study_Base/00_A_LASKAR_AI/Dicoding_L_Membangun_Sistem_Machine_Learning/Kriteria_3_MembuatWorkflow_CI/MLProject/mlruns/0/c68efcfabcd6481eba7b5c8ab4f1a667/artifacts
+end_time: 1750999737198
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: c68efcfabcd6481eba7b5c8ab4f1a667
+run_name: crawling-shrike-540
+run_uuid: c68efcfabcd6481eba7b5c8ab4f1a667
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1750999734641
+status: 3
+tags: []
+user_id: runner

@@ -90,3 +90,19 @@ jobs:
         with:
           name: mlartifacts
           path: MLproject/mlruns/${{ env.experiment_id }}/${{ env.MLFLOW_RUN_ID }}/artifacts
+      
+      - name: Build Docker Model
+        run: |
+          docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/workflow-ci:latest .
+
+      - name: Log in to Docker Hub
+        run: echo "${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}" | docker login -u "${{ secrets.DOCKER_HUB_USERNAME }}" --password-stdin
+
+      - name: Tag Docker Image
+        run: |
+          docker tag ${{ secrets.DOCKER_HUB_USERNAME }}/workflow-ci:latest ${{ secrets.DOCKER_HUB_USERNAME }}/workflow-ci:v1.0.0
+
+      - name: Push Docker Image
+        run: |
+          docker push ${{ secrets.DOCKER_HUB_USERNAME }}/workflow-ci:latest
+          docker push ${{ secrets.DOCKER_HUB_USERNAME }}/workflow-ci:v1.0.0

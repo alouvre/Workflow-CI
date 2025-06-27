@@ -11,7 +11,6 @@ on:
 env:
   CSV_URL: "MLproject/data_student_cleaned.csv"
   TARGET_VAR: "Status"
-  MLFLOW_TRACKING_URI: "file:MLproject/mlruns"
 
 jobs:
   train-model:
@@ -64,16 +63,18 @@ jobs:
       - name: Get latest MLflow run_id
         id: get_run_id
         run: |
+          cd MLproject
+
           experiment_id=0
           echo "experiment_id=$experiment_id" >> $GITHUB_ENV
 
-          run_id=$(ls -1t MLproject/mlruns/$experiment_id | grep -E '^[a-f0-9]{32}$' | head -n 1)
+          run_id=$(ls -1t "./mlruns/$experiment_id" | grep -E '^[a-f0-9]{32}$' | head -n 1)
           if [ -z "$run_id" ]; then
-            echo "❌ Failed to find latest run_id"
+            echo "Failed to get run_id"
             exit 1
           fi
 
-          echo "✅ Latest run_id: $run_id"
+          echo "Latest run_id: $run_id"
           echo "MLFLOW_RUN_ID=$run_id" >> $GITHUB_ENV
 
       - name: Install Python dependencies
@@ -87,7 +88,7 @@ jobs:
         with:
           name: mlartifacts
           path: MLproject/mlruns/${{ env.experiment_id }}/${{ env.MLFLOW_RUN_ID }}/artifacts
-
+      
       - name: Build Docker Model
         run: |
           docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/workflow-ci:latest .

@@ -20,7 +20,7 @@ from mlflow.models.signature import infer_signature
 # 🔧 Setup MLflow tracking lokal
 # ----------------------------------
 # mlflow.set_tracking_uri("http://127.0.0.1:5000")
-mlflow.set_tracking_uri(os.getenv("MLFLOW_TRACKING_URI", "file:MLproject/mlruns"))
+mlflow.set_tracking_uri(os.getenv("MLFLOW_TRACKING_URI"))
 mlflow.set_experiment("Dropout_Prediction_Submission")
 mlflow.autolog(disable=True)  # Nonaktifkan autolog agar tidak bentrok saat log manual
 
@@ -62,7 +62,7 @@ def log_estimator_html(model, save_path):
 # ----------------------------------
 # ▶️ Main Training
 # ----------------------------------
-def main():
+# def main():
     X_train, X_test, y_train, y_test = load_data()
     input_example = X_train[0:5]
 
@@ -124,6 +124,6 @@ def main():
 # ----------------------------------
 # ▶️ Entry point
 # ----------------------------------
-if __name__ == "__main__":
-    # args = parse_args()
-    main()
+# if __name__ == "__main__":
+#     # args = parse_args()
+#     main()

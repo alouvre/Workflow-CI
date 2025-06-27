@@ -1,0 +1,14 @@
+aliases: []
+creation_timestamp: 1750992775982
+current_stage: Production
+description: ''
+last_updated_timestamp: 1750992802241
+name: Dropout_Prediction
+run_id: 19cb328f09e3470fa074c8ad016797fd
+run_link: ''
+source: file:///D:/Study_Base/00_A_LASKAR_AI/Dicoding_L_Membangun_Sistem_Machine_Learning/Kriteria_3_MembuatWorkflow_CI/MLproject/mlartifacts/224530281564382925/19cb328f09e3470fa074c8ad016797fd/artifacts/best_XGBoost_model
+status: READY
+status_message: null
+storage_location: file:///D:/Study_Base/00_A_LASKAR_AI/Dicoding_L_Membangun_Sistem_Machine_Learning/Kriteria_3_MembuatWorkflow_CI/MLproject/mlartifacts/224530281564382925/19cb328f09e3470fa074c8ad016797fd/artifacts/best_XGBoost_model
+user_id: null
+version: 1

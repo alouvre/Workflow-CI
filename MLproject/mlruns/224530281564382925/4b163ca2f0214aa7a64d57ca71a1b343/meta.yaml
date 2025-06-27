@@ -1,0 +1,15 @@
+artifact_uri: file:///D:/Study_Base/00_A_LASKAR_AI/Dicoding_L_Membangun_Sistem_Machine_Learning/Kriteria_3_MembuatWorkflow_CI/MLproject/mlartifacts/224530281564382925/4b163ca2f0214aa7a64d57ca71a1b343/artifacts
+end_time: 1750992580531
+entry_point_name: ''
+experiment_id: '224530281564382925'
+lifecycle_stage: active
+run_id: 4b163ca2f0214aa7a64d57ca71a1b343
+run_name: Model_Tunning
+run_uuid: 4b163ca2f0214aa7a64d57ca71a1b343
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1750992580097
+status: 3
+tags: []
+user_id: User

@@ -14,13 +14,14 @@ from sklearn.metrics import (
     accuracy_score, precision_score, recall_score,
     f1_score, classification_report
 )
+from mlflow.models.signature import infer_signature
 
 # ----------------------------------
 # 🔧 Setup MLflow tracking lokal
 # ----------------------------------
 # mlflow.set_tracking_uri("http://127.0.0.1:5000")
-mlflow.set_tracking_uri(os.getenv("MLFLOW_TRACKING_URI", "file:mlruns"))
-# mlflow.set_experiment("Dropout_Prediction_Submission_NoTuning")
+mlflow.set_tracking_uri(os.getenv("MLFLOW_TRACKING_URI"))
+mlflow.set_experiment("Dropout_Prediction_Submission")
 mlflow.autolog(disable=True)  # Nonaktifkan autolog agar tidak bentrok saat log manual
 
 
@@ -36,7 +37,7 @@ mlflow.autolog(disable=True)  # Nonaktifkan autolog agar tidak bentrok saat log 
 # ----------------------------------
 # 📂 Load dan split data
 # ----------------------------------
-def load_data(path="data_student_cleaned.csv"):
+def load_data(path="MLproject/data_student_cleaned.csv"):
     df = pd.read_csv(path)
     X = df.drop("Status", axis=1)
     y = df["Status"]
@@ -63,11 +64,12 @@ def log_estimator_html(model, save_path):
 # ----------------------------------
 def main():
     X_train, X_test, y_train, y_test = load_data()
+    input_example = X_train[0:5]
 
     model_name = "XGBoost"
     model = XGBClassifier(eval_metric='logloss', n_jobs=1)
 
-    with mlflow.start_run() as run:
+    with mlflow.start_run(run_name="Model_Tunning") as run:
         print(f"🔍 Training model: {model_name}...")
 
         pipeline = Pipeline([
@@ -103,6 +105,15 @@ def main():
         joblib.dump(pipeline, model_path)
         mlflow.log_artifact(str(model_path))
 
+        # 🔁 Simpan model dengan struktur MLflow lengkap
+        signature = infer_signature(X_test, y_pred)
+        mlflow.sklearn.log_model(
+            sk_model=pipeline,
+            artifact_path=f"best_{model_name}_model",  # ini akan muncul sebagai folder di artifacts
+            signature=signature,
+            input_example=input_example
+        )
+
         print(f"✅ Model {model_name} selesai dilatih dan dicatat ke MLflow.")
         print(f"🔍 Akurasi: {acc:.4f} | Precision: {prec:.4f} | Recall: {rec:.4f}  | F1-Score: {f1:.4f}")
 
@@ -112,6 +123,6 @@ def main():
 # ----------------------------------
 # ▶️ Entry point
 # ----------------------------------
-# if __name__ == "__main__":
-#     args = parse_args()
-#     main(args.data_path)
+if __name__ == "__main__":
+    # args = parse_args()
+    main()

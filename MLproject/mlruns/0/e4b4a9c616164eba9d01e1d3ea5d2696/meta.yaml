@@ -1,0 +1,15 @@
+artifact_uri: file:///D:/Study_Base/00_A_LASKAR_AI/Dicoding_L_Membangun_Sistem_Machine_Learning/Kriteria_3_MembuatWorkflow_CI/MLProject/mlruns/0/e4b4a9c616164eba9d01e1d3ea5d2696/artifacts
+end_time: 1750990572369
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: e4b4a9c616164eba9d01e1d3ea5d2696
+run_name: useful-gnu-521
+run_uuid: e4b4a9c616164eba9d01e1d3ea5d2696
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1750990569613
+status: 3
+tags: []
+user_id: runner

@@ -1,5 +1,4 @@
 import os
-import argparse
 import json
 from pathlib import Path
 import joblib
@@ -20,23 +19,11 @@ from mlflow.models.signature import infer_signature
 # 🔧 Setup MLflow tracking lokal
 # ----------------------------------
 # mlflow.set_tracking_uri("http://127.0.0.1:5000")
-<<<<<<< HEAD
 mlflow.set_tracking_uri(os.getenv("MLFLOW_TRACKING_URI", "file:MLproject/mlruns"))
-# mlflow.set_experiment("Dropout_Prediction_Submission_NoTuning")
-=======
+
 mlflow.set_tracking_uri(os.getenv("MLFLOW_TRACKING_URI"))
 mlflow.set_experiment("Dropout_Prediction_Submission")
->>>>>>> 45092df6913b78978298625abc16ef3d42fe56b5
 mlflow.autolog(disable=True)  # Nonaktifkan autolog agar tidak bentrok saat log manual
-
-
-# # ----------------------------------
-# # 📂 Parse arguments
-# # ----------------------------------
-# def parse_args():
-#     parser = argparse.ArgumentParser()
-#     parser.add_argument('--data_path', type=str, default='data_student_cleaned.csv', help='Path ke dataset')
-#     return parser.parse_args()
 
 
 # ----------------------------------
@@ -67,7 +54,7 @@ def log_estimator_html(model, save_path):
 # ----------------------------------
 # ▶️ Main Training
 # ----------------------------------
-# def main():
+def main():
     X_train, X_test, y_train, y_test = load_data()
     input_example = X_train[0:5]
 
@@ -129,6 +116,5 @@ def log_estimator_html(model, save_path):
 # ----------------------------------
 # ▶️ Entry point
 # ----------------------------------
-# if __name__ == "__main__":
-#     # args = parse_args()
-#     main()
+if __name__ == "__main__":
+    main()
